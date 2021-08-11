@@ -31,9 +31,18 @@ namespace ThePump
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDatabaseDeveloperPageExceptionFilter();
-
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //change to false so that user donot need to verify thei email addresses
+            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = Configuration.GetSection("Authentication:Google")["ClientId"];
+                    options.ClientSecret = Configuration.GetSection("Authentication:Google")["ClientSecret"];
+
+                });
             services.AddControllersWithViews();
         }
 

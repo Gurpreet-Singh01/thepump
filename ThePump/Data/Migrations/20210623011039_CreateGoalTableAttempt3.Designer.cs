@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ThePump.Data;
 
 namespace ThePump.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210623011039_CreateGoalTableAttempt3")]
+    partial class CreateGoalTableAttempt3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -219,35 +221,6 @@ namespace ThePump.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ThePump.Models.AddData", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<decimal>("CurrentBodyWeight")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("GoalId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("RequiredBodyWeight")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("TypeOfExercise")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GoalId");
-
-                    b.ToTable("AddData");
-                });
-
             modelBuilder.Entity("ThePump.Models.Goal", b =>
                 {
                     b.Property<int>("Id")
@@ -255,15 +228,12 @@ namespace ThePump.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("FinishingDate")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("FitnessGoal")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("StartingDate")
-                        .HasColumnType("datetime2");
+                    b.Property<int>("TimePeriod")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -319,22 +289,6 @@ namespace ThePump.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("ThePump.Models.AddData", b =>
-                {
-                    b.HasOne("ThePump.Models.Goal", "Goal")
-                        .WithMany("AddData")
-                        .HasForeignKey("GoalId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Goal");
-                });
-
-            modelBuilder.Entity("ThePump.Models.Goal", b =>
-                {
-                    b.Navigation("AddData");
                 });
 #pragma warning restore 612, 618
         }

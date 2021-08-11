@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ThePump.Controllers
 {
-    public class FitnessGoal : Controller
+    public class GoalController : Controller
     {
         public IActionResult Index()
         {
