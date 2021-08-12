@@ -110,21 +110,41 @@ namespace ThePumpTestNew
         }
 
         [TestMethod]
+       
+        
         public void DeleteReturnsResult()
         {
-            //arrange
-
-            //act
-            var result = controller.Delete(null);
+            
+            var result = controller.Delete(2);
             var viewResult = (ViewResult)result.Result;
-
             var model = (List<Goal>)viewResult.Model;
+            
+            CollectionAssert.AllItemsAreNotNull(model);
 
+        }
+
+       
+        [TestMethod]
+        public void DeleteReturns()
+        {
+            //arrange
+            //act
+            var result = controller.Delete(2);
+            var viewResult = (ViewResult)result.Result;
+            var model = (List<Goal>)viewResult.Model;
             //assert
-            Assert.AreEqual("index", viewResult.ViewName);
             CollectionAssert.AreEqual(FitnessGoals, model);
         }
 
+        
+        [TestMethod]
+        public void TestDeleteId()
+        {
+            var result = controller.Delete(2);
+            var viewResult = (ViewResult)result.Result;
+
+            Assert.AreEqual("Delete", viewResult.ViewName);
+        }
 
 
     }
