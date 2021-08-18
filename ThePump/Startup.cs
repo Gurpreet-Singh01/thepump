@@ -63,6 +63,13 @@ namespace ThePump
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "ThePump V1");
+            });
+
             app.UseRouting();
 
             app.UseAuthentication();
